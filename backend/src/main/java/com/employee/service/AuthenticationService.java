@@ -2,31 +2,37 @@ package com.employee.service;
 
 import com.employee.model.User;
 import com.employee.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import java.util.Optional;
 
+@Service
 public class AuthenticationService {
-    private static final UserRepository userRepository = new UserRepository();
+    private final UserRepository userRepository;
 
-    public static User authenticate(String username, String password) {
-        System.out.println("Attempting to authenticate user: " + username);
-        Optional<User> userOpt = userRepository.findByUsername(username);
-        
-        if (userOpt.isPresent()) {
-            User user = userOpt.get();
-            System.out.println("User found in database: " + user.getUsername());
-            System.out.println("Stored password: " + user.getPassword());
-            System.out.println("Provided password: " + password);
-            
-            if (user.getPassword().equals(password)) {
-                System.out.println("Password match, authentication successful");
-                return user;
-            } else {
-                System.out.println("Password mismatch");
-            }
-        } else {
-            System.out.println("User not found in database");
+    @Autowired
+    public AuthenticationService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public boolean authenticate(String username, String password) {
+        Optional<User> user = userRepository.findByUsername(username);
+        return user.isPresent() && user.get().getPassword().equals(password);
+    }
+
+    public Optional<User> getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    public User createUser(String username, String password, String role) {
+        if (userRepository.existsByUsername(username)) {
+            throw new RuntimeException("Username already exists");
         }
-        return null;
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setRole(role);
+        return userRepository.save(user);
     }
 
     public static boolean isAdmin(User user) {

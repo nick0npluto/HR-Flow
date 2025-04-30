@@ -1,92 +1,126 @@
 package com.employee.model;
 
+import jakarta.persistence.*;
+import java.util.Date;
+import java.util.Objects;
+
+@Entity
+@Table(name = "employees")
 public class Employee {
-    private Long id;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String department;
-    private String position;
-    private double salary;
-    private String username;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long empid;
 
-    public Employee() {
-    }
+    @Column(name = "first_name")
+    private String first_name;
 
-    public Employee(Long id, String firstName, String lastName, String email, 
-                   String department, String position, double salary, String username) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.department = department;
-        this.position = position;
-        this.salary = salary;
-        this.username = username;
-    }
+    @Column(name = "last_name")
+    private String last_name;
+
+    private String gender;
+    private String race;
+    private String dob;
+    private String phone;
+    private Double salary;
+
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
+    private Address address;
 
     // Getters and Setters
-    public Long getId() {
-        return id;
+    public Long getEmpid() {
+        return empid;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setEmpid(Long empid) {
+        this.empid = empid;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirst_name() {
+        return first_name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLast_name() {
+        return last_name;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
     }
 
-    public String getEmail() {
-        return email;
+    public String getGender() {
+        return gender;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
-    public String getDepartment() {
-        return department;
+    public String getRace() {
+        return race;
     }
 
-    public void setDepartment(String department) {
-        this.department = department;
+    public void setRace(String race) {
+        this.race = race;
     }
 
-    public String getPosition() {
-        return position;
+    public String getDob() {
+        return dob;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
+    public void setDob(String dob) {
+        this.dob = dob;
     }
 
-    public double getSalary() {
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Double getSalary() {
         return salary;
     }
 
-    public void setSalary(double salary) {
+    public void setSalary(Double salary) {
         this.salary = salary;
     }
 
-    public String getUsername() {
-        return username;
+    public User getUser() {
+        return user;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return Objects.equals(empid, employee.empid);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(empid);
     }
 } 
