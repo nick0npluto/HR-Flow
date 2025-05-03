@@ -2,6 +2,7 @@ package com.employee.manager.model;
 
 import lombok.Data;
 import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 
 @Data
@@ -17,5 +18,6 @@ public class Division {
     private String name;
 
     @OneToMany(mappedBy = "division")
+    @JsonIgnore
     private List<Employee> employees;
 } 

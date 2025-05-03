@@ -21,4 +21,9 @@ public class User {
 
     @Column(nullable = false)
     private String role;
+
+    // ✅ Link to employee (One user → one employee)
+    @OneToOne
+    @JoinColumn(name = "empid", referencedColumnName = "empid")
+    private Employee employee;
 }

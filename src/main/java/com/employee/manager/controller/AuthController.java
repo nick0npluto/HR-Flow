@@ -22,7 +22,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
-        System.out.println("Login attempt: " + loginRequest); // 🔍 Debug print
+        System.out.println("Login attempt: " + loginRequest);
 
         Optional<User> optionalUser = userRepository.findByUsername(loginRequest.getUsername());
 
@@ -36,6 +36,6 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
         }
 
-        return ResponseEntity.ok().body("Login successful. Role: " + user.getRole());
+        return ResponseEntity.ok("Login successful. Role: " + user.getRole());
     }
 }

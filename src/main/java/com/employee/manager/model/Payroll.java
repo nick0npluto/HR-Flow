@@ -11,20 +11,18 @@ import java.util.Date;
 public class Payroll {
 
     @Id
-    private Long payID;
+    @Column(name = "empid")
+    private Long empid;
 
+    @Column(name = "salary")
+    private Double salary;
+
+    @Column(name = "pay_date")
     @Temporal(TemporalType.DATE)
     private Date payDate;
 
-    private Double earnings;
-    private Double fedTax;
-    private Double fedMed;
-    private Double fedSS;
-    private Double stateTax;
-    private Double retire401k;
-    private Double healthCare;
-
-    @ManyToOne
-    @JoinColumn(name = "empid")  // foreign key in payroll table
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "empid")
     private Employee employee;
 }

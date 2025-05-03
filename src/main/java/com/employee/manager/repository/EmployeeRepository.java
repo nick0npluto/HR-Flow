@@ -6,12 +6,14 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
-    List<Employee> findByFirstNameContainingOrLastNameContaining(String firstName, String lastName);
-    Employee findBySsn(String ssn);
+    Optional<Employee> findByEmpid(Long empid);
+    Optional<Employee> findBySsn(String ssn);
     List<Employee> findByDateOfBirth(Date dateOfBirth);
-    List<Employee> findByJobTitleId(Long jobTitleId);
-    List<Employee> findByDivisionId(Long divisionId);
+    List<Employee> findByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(String firstName, String lastName);
+    List<Employee> findByJobTitle_JobTitleId(Long jobTitleId);
+    List<Employee> findByDivision_Id(Long divisionId);
 } 

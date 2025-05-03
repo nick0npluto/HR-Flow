@@ -2,6 +2,7 @@ package com.employee.manager.model;
 
 import lombok.Data;
 import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 
 @Data
@@ -17,5 +18,10 @@ public class Department {
     private String name;
 
     @OneToMany(mappedBy = "department")
+    @JsonIgnore
     private List<Employee> employees;
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 } 
