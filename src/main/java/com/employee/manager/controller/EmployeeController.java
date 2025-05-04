@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.security.core.Authentication;
 
 @RestController
 @RequestMapping("/api/employees")
@@ -123,5 +124,15 @@ public class EmployeeController {
         return employeeService.getEmployeesByDivision(divisionId).stream()
                 .map(employeeMapper::toDTO)
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<EmployeeDTO> getCurrentEmployee(Authentication authentication) {
+        String username = authentication.getName();
+        Employee employee = employeeService.getEmployeeByUsername(username);
+        if (employee == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(employeeMapper.toDTO(employee));
     }
 }

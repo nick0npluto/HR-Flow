@@ -2,6 +2,7 @@ package com.employee.manager.service;
 
 import com.employee.manager.model.Employee;
 import com.employee.manager.repository.EmployeeRepository;
+import com.employee.manager.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +16,9 @@ import java.text.ParseException;
 public class EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     public List<Employee> getAllEmployees() {
         return employeeRepository.findAll();
@@ -117,5 +121,11 @@ public class EmployeeService {
         }
         employeeRepository.saveAll(employees);
         return employees.size();
+    }
+
+    public Employee getEmployeeByUsername(String username) {
+        return userRepository.findByUsername(username)
+            .map(com.employee.manager.model.User::getEmployee)
+            .orElse(null);
     }
 } 

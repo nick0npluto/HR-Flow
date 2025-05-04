@@ -10,6 +10,7 @@
 /Users/dstatic/Final Employee Manager/src/main/java/com/employee/manager/security/SecurityConfig.java
 /Users/dstatic/Final Employee Manager/src/main/java/com/employee/manager/EmployeeManagerApplication.java
 /Users/dstatic/Final Employee Manager/src/main/java/com/employee/manager/controller/PayrollController.java
+/Users/dstatic/Final Employee Manager/src/main/java/com/employee/manager/dto/UserDTO.java
 /Users/dstatic/Final Employee Manager/src/main/java/com/employee/manager/service/PayrollService.java
 /Users/dstatic/Final Employee Manager/src/main/java/com/employee/manager/mapper/EmployeeMapper.java
 /Users/dstatic/Final Employee Manager/src/main/java/com/employee/manager/dto/EmployeeDTO.java
