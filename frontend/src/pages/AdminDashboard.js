@@ -88,12 +88,7 @@ function AdminDashboardPage() {
     if (!bulkUpdatePercentage) return;
 
     try {
-      const response = await fetch('/api/employees/bulk-update', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ percentage: parseFloat(bulkUpdatePercentage) })
-      });
-
+      const response = await fetch('/api/employees/salary-update?min=0&max=100&percent=' + bulkUpdatePercentage);
       if (!response.ok) throw new Error('Bulk update failed');
       await fetchEmployees();
       setBulkUpdatePercentage('');
@@ -102,8 +97,8 @@ function AdminDashboardPage() {
     }
   };
 
-  const handleLogout = () => navigate('/login');
   const handleFAQ = () => navigate('/faq');
+  const handleLogout = () => navigate('/login'); // Optional: your own custom logout
 
   return (
     <div style={{
@@ -114,9 +109,16 @@ function AdminDashboardPage() {
       backgroundColor: '#000',
       position: 'relative',
     }}>
-      <div style={{ position: 'absolute', top: '20px', right: '20px', display: 'flex', gap: '15px' }}>
+      <div style={{
+        position: 'absolute',
+        top: '20px',
+        right: '20px',
+        display: 'flex',
+        gap: '15px',
+      }}>
         <button onClick={handleFAQ} style={buttonStyle}>FAQ</button>
-        <button onClick={handleLogout} style={buttonStyle}>Logout</button>
+        {/* Optionally, add your own custom logout button here: */}
+        {/* <button onClick={handleLogout} style={buttonStyle}>Logout</button> */}
       </div>
 
       <h1 style={{ textAlign: 'center', marginBottom: '40px' }}>Admin Dashboard</h1>

@@ -23,8 +23,8 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Header />
-      {isLoggedIn && <LogoutButton onLogout={handleLogout} />}
+    {isLoggedIn && <Header />}
+    {isLoggedIn && <LogoutButton onLogout={handleLogout} />}
       <Routes>
         <Route 
           path="/login" 
